@@ -17,11 +17,21 @@ with open(filename) as opened_file:
         ...
 """
 from typing import Tuple
-import heapq
+from math import inf 
 
-def get_min_max(filename: str) -> Tuple[int, int]:
+def get_min_max(filename:str) -> Tuple[int, int]:
+    """Returns the minimum and maximum integers contained in the file"""
+    
+    # Initializing max and min to a low and high value respectively.
+    max = -inf
+    min = inf
+
+    # Looping through lines in the file and comparing to current min/max.
     with open(filename, "r") as f:
-        nums_lst=f.read().splitlines()
-        heapq.heapify(nums_lst)
-        sorted_nums_lst = [int(heapq.heappop(nums_lst)) for _ in range(len(nums_lst))]
-    return (sorted_nums_lst[0], sorted_nums_lst[-1])
+        for num in f:
+            num = int(num.rstrip())
+            if num > max:
+                max = num
+            if num < min:
+                min = num
+    return (min, max)

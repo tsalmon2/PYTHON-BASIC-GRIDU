@@ -10,8 +10,11 @@ Example:
         file1.txt (content: "abc\ndef\nxyz", encoding: UTF-8)
         file2.txt (content: "xyz,def,abc", encoding: CP1252)
 """
+from typing import List
 
-def generate_words(n=20):
+
+def generate_words(n: int=20) -> List:
+    """Generates a list of random words of specified size."""
     import string
     import random
 
@@ -22,7 +25,8 @@ def generate_words(n=20):
 
     return words
 
-def task_read_write_2(rand_file, reverse_file):
+def task_read_write_2(rand_file: str, reverse_file: str) -> None:
+    """Writes random words and reverse of words to separate files."""
     rand_words = generate_words(10)
 
     with open(rand_file, "w", encoding="utf-8") as f:
@@ -31,6 +35,4 @@ def task_read_write_2(rand_file, reverse_file):
     with open(reverse_file, "w", encoding="CP1252") as f2:
         f2.writelines(word + '\n' for word in rand_words[::-1])
 
-if __name__ == '__main__':
-    task_read_write_2("random_words.txt", "reverse_words.txt")
 

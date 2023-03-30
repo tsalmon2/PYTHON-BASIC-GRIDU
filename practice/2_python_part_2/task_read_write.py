@@ -13,10 +13,11 @@ Example:
 
     result.txt(content: "23, 78, 3")
 """
-
 import os
 
-def read_files(*files, res_file_path):
+
+def read_files(*files, res_file_path: str) -> None:
+    """Writes comma-separated values from all files to specified file path."""
     path = r"/files"
 
     # Need to cd into folder above files
@@ -38,6 +39,3 @@ def read_files(*files, res_file_path):
     # Output the contents of each file to the result text file separated by a comma and space
     with open(res_file_path, "w", encoding="utf-8") as r:
         r.write(", ".join(res_lst))
-
-if __name__ == '__main__':
-    read_files("file_1.txt", "file_2.txt", "file_3.txt", res_file_path="/Users/tiasalmon/Documents/Python_Basics/python_basic/practice/2_python_part_2/files/result.txt")

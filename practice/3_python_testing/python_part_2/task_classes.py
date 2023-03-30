@@ -25,35 +25,46 @@ Methods:
     Note that this method doesn't need object itself
 PEP8 comply strictly.
 """
+from __future__ import annotations
 import datetime as dt
+from typing import Union
+
 
 class Teacher:
-    def __init__(self, lname, fname) -> None:
-            self.last_name = lname
-            self.first_name = fname
+    """A class representing a Teacher object."""
 
-    def create_homework(self, homework_text, num_completion_days):
-        return Homework(homework_text, num_completion_days)
-
-
-class Student:
-    def __init__(self, lname, fname) -> None:
+    def __init__(self, lname: str, fname: str) -> None:
         self.last_name = lname
         self.first_name = fname
 
-    def do_homework(self, homework):
+    def create_homework(self, homework_text: str, num_completion_days: int) -> Homework:
+        """Creates a Homework object from homework text and number of days."""
+        return Homework(homework_text, num_completion_days)
+    
+    
+class Student:
+    """A class representing a Student object."""
+    def __init__(self, lname: str, fname: str) -> None:
+        self.last_name = lname
+        self.first_name = fname
+
+    def do_homework(self, homework: Homework) -> Union[None, Homework]:
+        """Returns Homework object if active or None if inactive."""
         if not homework.is_active():
             print("You are late") 
             return None
         return homework
+    
 
 class Homework:
-    def __init__(self, text, num_days_to_complete) -> None:
+    """A class representing a Homework object."""
+    def __init__(self, text: str, num_days_to_complete: int) -> None:
         self.text = text
         self.created = dt.datetime.now()
         self.deadline = dt.timedelta(num_days_to_complete)
 
-    def is_active(self):
+    def is_active(self) -> bool:
+        """Returns a boolean indicating whether the Homework is active."""
         return dt.datetime.now() <= self.created + self.deadline
 
 
@@ -75,4 +86,3 @@ if __name__ == '__main__':
 
     print(student.do_homework(oop_homework))
     print(student.do_homework(expired_homework))  # You are late
-    

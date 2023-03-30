@@ -10,8 +10,12 @@ Example:
         file1.txt (content: "abc\ndef\nxyz", encoding: UTF-8)
         file2.txt (content: "xyz,def,abc", encoding: CP1252)
 """
+from typing import List
+from pathlib import Path
 
-def generate_words(n=20):
+
+def generate_words(n: int=20) -> List:
+    """Generates a list of random words of specified size."""
     import string
     import random
 
@@ -22,15 +26,17 @@ def generate_words(n=20):
 
     return words
 
-def task_read_write_2(rand_file, reverse_file):
+def task_read_write_2(rand_file_name: str, reverse_file_name: str) -> None:
+    """Writes random words and reverse of words to separate files."""
+    Path(Path(__file__).parent / "rand_files").mkdir(exist_ok=True)
+    rand_words_folder = Path(__file__).parent / "rand_files"
     rand_words = generate_words(10)
 
-    with open(rand_file, "w", encoding="utf-8") as f:
+    with open(Path(rand_words_folder / rand_file_name), "w", encoding="utf-8") as f:
         f.writelines(word + '\n' for word in rand_words)
 
-    with open(reverse_file, "w", encoding="CP1252") as f2:
+    with open(Path(rand_words_folder / reverse_file_name), "w", encoding="CP1252") as f2:
         f2.writelines(word + '\n' for word in rand_words[::-1])
 
 if __name__ == '__main__':
     task_read_write_2("random_words.txt", "reverse_words.txt")
-

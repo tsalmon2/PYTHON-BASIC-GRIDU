@@ -1,4 +1,7 @@
-def read_numbers():
+from typing import List
+
+
+def read_numbers() -> List:
     nums = []
     while True:
         number = input("Enter number: ")

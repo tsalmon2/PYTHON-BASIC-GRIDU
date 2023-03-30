@@ -11,6 +11,6 @@ Examples:
     '1 2 3'
 """
 
-
 def remove_duplicated_words(line: str) -> str:
-    ...
+    """Removes duplicated words from line."""
+    return ' '.join(dict.fromkeys(line.split()))

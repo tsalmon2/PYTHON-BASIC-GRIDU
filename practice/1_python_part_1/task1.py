@@ -13,10 +13,10 @@ Examples:
 """
 from typing import List, Any
 
-"""Deletes specified item from the list."""
 def delete_from_list(list_to_clean: List, item_to_delete: Any) -> List:
-    ...
+    """Removes the specified item from the list."""
     for ind, item in enumerate(list_to_clean):
+        # If current item in list is the item to delete, remove from list.
         if item == item_to_delete:
             list_to_clean.pop(ind)
     return list_to_clean

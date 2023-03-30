@@ -10,5 +10,6 @@ Examples:
 from typing import List
 
 def calculate_power_with_difference(ints: List[int]) -> List[int]:
+    """Performs power and difference calculations on list of integers."""
     final_lst = [num**2 - (ints[ind-1]**2 - ints[ind-1]) if ind != 0 else num**2 for ind, num in enumerate(ints)]
     return final_lst

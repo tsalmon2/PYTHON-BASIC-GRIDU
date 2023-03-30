@@ -16,17 +16,13 @@ Examples:
 
 """
 def read_numbers(n: int) -> str:
-    total = count = avg = 0
-    return_stmt = "No numbers entered"
+    """Returns average of numbers entered."""
+    total = count = 0
     for _ in range(0, n):
         num = input("Enter a number: ")
         if num.isnumeric():
             count += 1
             total += int(num)
-            avg = round(total/count, 2)
-            return_stmt = f"Avg: {avg}"
-    return return_stmt
+    if count == 0: return "No numbers entered"
+    return f"Avg: {round(total/count, 2)}"
 
-
-if __name__ == '__main__':
-    print(read_numbers(5))

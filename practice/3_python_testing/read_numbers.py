@@ -8,7 +8,6 @@ def read_numbers() -> List:
         if number.replace(".", "", 1).isdigit():
             nums.append(number)
             continue
-
         return nums
 
 if __name__ == "__main__":

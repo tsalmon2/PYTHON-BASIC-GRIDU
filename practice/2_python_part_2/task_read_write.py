@@ -13,29 +13,22 @@ Example:
 
     result.txt(content: "23, 78, 3")
 """
-import os
+from pathlib import Path
 
 
-def read_files(*files, res_file_path: str) -> None:
+def read_files(*files, res_file_name: str) -> None:
     """Writes comma-separated values from all files to specified file path."""
-    path = r"/files"
-
-    # Need to cd into folder above files
-    path_to_folder = os.getcwd() + path
-
-    # Get list of files to go through
+    files_folder = Path(__file__).parent / "files"
     files_list = [file for file in files]
-
-    res_lst = []
 
     # Add contents of each file to results list
     for file in files_list:
         try:
-            with open(f"{path_to_folder}/{file}", "r", encoding="utf-8") as f:
-                file_content=f.read().splitlines() # Reading all lines of file in case content is on multiple lines
-                res_lst.extend(file_content)
+            with open(f"{Path(files_folder / file)}", "r", encoding="utf-8") as f1, open(res_file_name, "a", encoding="utf-8") as f2:
+                for line in f1:
+                    f2.write(f"{line}, " if file != files_list[-1] else f"{line}")
         except FileNotFoundError:
             raise FileNotFoundError("File doesn't exist. Please recheck file names.")
-    # Output the contents of each file to the result text file separated by a comma and space
-    with open(res_file_path, "w", encoding="utf-8") as r:
-        r.write(", ".join(res_lst))
+
+if __name__ == "__main__":
+    read_files("file_1.txt", "file_16.txt", "file_3.txt", res_file_name=f"{Path(__file__).parent / 'files' / 'result.txt'}")

@@ -9,23 +9,23 @@ Example:
 """
 
 import pytest
-import os
-import subprocess
+from unittest.mock import Mock, patch
+from task_4 import get_args, argparse
 
 from task_4_exceptions import InvalidFakerProviderException, InvalidKeyValuePairException
 
-print(subprocess.run(["python3", "task_4.py", "2", "--name=s", "--address=address=addr"]))
+@patch('argparse.ArgumentParser')
 class TestPrintName:
-    def test_with_valid_args(self, capfd):
-        os.system("python3 'task_4.py' 2 --name=name --address=address")
-        captured = capfd.readouterr()
-        out_dict = {'name': 'Amanda Tracy', 'address': '944 Priscilla Junctions Suite 591\nEast Davidberg, NV 13114'}
-        assert captured.out == f"{out_dict}\n"*2
-    
-    def test_with_invalid_dict_pair(self):
-        with pytest.raises(InvalidKeyValuePairException):
-            subprocess.run(["python3", "task_4.py", "2", "--name=s", "--address=address=addr"])
-        # assert os.system("python3 'task_4.py' 2 --name=s --address=address=addr") == "n"
+    # argparse.ArgumentParser(name).add_argument()
+    def test_with_valid_args(self, arg_mock, capfd):
+        add_argument = Mock()
+        add_argument.side_effect = [5, '--name=name', '--addr=address']
+        arg_mock.return_value = add_argument
+        assert arg_mock() == 'j'
+        # assert add_argument() == 5
+        # assert add_argument() == 'h'
+        # assert add_argument() == 'i'
 
-        # with pytest.raises(InvalidKeyValuePairException):
+        # captured = capfd.readouterr()
+   
 

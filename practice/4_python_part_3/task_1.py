@@ -14,10 +14,13 @@ from datetime import datetime
 from freezegun import freeze_time
 import pytest 
 
+
 class WrongFormatException(Exception):
+    """Class representing WrongFormatException."""
     pass
 
 def calculate_days(from_date: str) -> int:
+    """Returns the number of days between today and a specified date."""
     date_format = '%Y-%m-%d'
     current_date = datetime.strptime(datetime.today().strftime(date_format), date_format)
     try:
@@ -34,6 +37,7 @@ Tip: for mocking datetime.now() use https://pypi.org/project/pytest-freezegun/
 
 @freeze_time("2023-03-20")
 class TestCalculateDays:
+    """Class representing TestCalculateDays."""
     def test_past_date_correct_format(self):
         assert calculate_days('2023-03-13') == 7
     

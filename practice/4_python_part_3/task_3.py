@@ -12,6 +12,7 @@ Note that address may have several domain levels
 import re
 import pytest
 
+
 def is_http_domain(domain: str) -> bool:
     pattern = r"^((http|https):\/\/)(([\w]-?)+\w\.\w+)(([\w]-?)+\w\.\w+)?\/?$"
     return bool(re.match(pattern, domain))

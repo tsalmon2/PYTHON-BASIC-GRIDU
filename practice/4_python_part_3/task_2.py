@@ -12,6 +12,7 @@ Examples:
 import math
 import pytest 
 
+
 class OperationNotFoundException(Exception):
     pass
 

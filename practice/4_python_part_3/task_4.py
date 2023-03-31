@@ -13,25 +13,20 @@ Example:
 {"some_name": "Chad Baird", "fake-address": "62323 Hobbs Green\nMaryshire, WY 48636"}
 {"some_name": "Courtney Duncan", "fake-address": "8107 Nicole Orchard Suite 762\nJosephchester, WI 05981"}
 """
-
 import argparse
 from faker import Faker
-from unittest.mock import Mock
 from task_4_exceptions import InvalidFakerProviderException, InvalidKeyValuePairException
 
-fake = Faker()
 
-fake = Mock()
-faker_attrs = {'name.return_value': 'Amanda Tracy', 'address.return_value':'944 Priscilla Junctions Suite 591\nEast Davidberg, NV 13114', 'color.return_value': '#e57293'}
-fake.configure_mock(**faker_attrs)
-
-parser = argparse.ArgumentParser(prog="TaskFourCLI")
-parser.add_argument('NUMBER', type=int)
-parser.add_argument('add_args', nargs=argparse.REMAINDER)
-args = parser.parse_args()
-
+def get_args():
+    parser = argparse.ArgumentParser(prog="TaskFourCLI")
+    parser.add_argument('NUMBER', type=int)
+    parser.add_argument('add_args', nargs=argparse.REMAINDER)
+    return parser.parse_args()
 
 def print_name_address(args: argparse.Namespace) -> None:
+    fake = Faker()
+
     for _ in range(args.NUMBER):
         new_dict = {}
         for arg in args.add_args:
@@ -53,4 +48,9 @@ def print_name_address(args: argparse.Namespace) -> None:
             new_dict[dict_key] = f()
         print(f"{new_dict}")
 
-print_name_address(args)
+if __name__ == "__main__":
+    args = get_args()
+    print(args)
+    print_name_address(args)
+
+

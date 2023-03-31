@@ -11,12 +11,3 @@ https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch
 
 TIP: for testing builtin input() function create another function which return input() and mock returned value
 """
-from unittest.mock import patch
-
-
-def test_read_numbers_without_text_input():
-    ...
-
-
-def test_read_numbers_with_text_input():
-    ...

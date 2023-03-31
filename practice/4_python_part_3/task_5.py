@@ -9,10 +9,6 @@ from typing import Tuple
 from urllib.request import urlopen
 from unittest.mock import Mock, patch
 
-urlopen = Mock(urlopen('https://www.google.com'))
-url_open_attrs = {'read.return_value':b'some response text'}
-urlopen.configure_mock(**url_open_attrs)
-
 def make_request(url: str) -> Tuple[int, str]:
     response = urlopen(url)
     status = response.status

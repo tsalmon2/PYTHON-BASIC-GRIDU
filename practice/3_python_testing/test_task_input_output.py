@@ -18,16 +18,10 @@ import pytest
 
 class TestInputOutput:
     """Class representing TestInputOutput."""
-    @patch('builtins.input', side_effect=[1,2,3,4])
-    def test_return_input_nums(self, mock_input):
-        assert input() == 1
-        assert input() == 2
-        assert input() == 3
-        assert input() == 4
-
-    @patch('builtins.input', side_effect=['1','2','3'])
-    def test_read_numbers_without_text_input(self, mock_input):
+    @patch('builtins.input', side_effect=['1','2','3','4','text'])
+    def test_return_input_nums_text(self, mock_input) -> None:
         assert read_numbers() == [1,2,3,4]
 
-    # def test_read_numbers_with_text_input(self):
-    #     ...
+    @patch('builtins.input', side_effect=['text1','text2'])
+    def test_read_numbers_with_text_input(self, mock_input) -> None:
+        assert read_numbers() == []

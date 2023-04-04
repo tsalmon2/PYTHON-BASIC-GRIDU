@@ -3,20 +3,24 @@ from urllib import request
 import json
 from concurrent.futures import ThreadPoolExecutor
 
+
 API_KEY = "vwLBysKKKT8CJcyUZXqRzhuztETQnLaSQLkPfEUE"
 APOD_ENDPOINT = 'https://api.nasa.gov/planetary/apod'
 Path(Path(__file__).parent / 'output-images').mkdir(exist_ok=True)
 OUTPUT_IMAGES = Path(Path(__file__).parent / 'output-images')
 
-def get_apod_metadata(start_date: str, end_date: str, api_key: str) -> list:
+def get_apod_metadata(start_date: str, end_date: str, api_key: str):
+    """Make API request and return the HTTP response."""
     return request.urlopen(f"{APOD_ENDPOINT}/?api_key={api_key}&start_date={start_date}&end_date={end_date}" if end_date else f"{APOD_ENDPOINT}/?api_key={api_key}&date={start_date}".encode('utf-8'))
     
-def download_apod_image(meta):
+def download_apod_image(meta: dict) -> None:
+    """Retrieve all images and upload to the output folder."""
     if meta["media_type"] == 'image':
             title = meta["title"].replace(" ","_").replace(":","_") + ".jpg"
             request.urlretrieve(url=meta["hdurl"], filename=Path(OUTPUT_IMAGES / title))
 
-def download_apod_images(metadata: list):
+def download_apod_images(metadata: list) -> None:
+    """Concurrently retrieve all images."""
     metadata = json.loads(metadata)
     with ThreadPoolExecutor(5) as exec:
         for meta in metadata: exec.submit(download_apod_image, meta)

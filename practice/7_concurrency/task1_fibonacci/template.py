@@ -4,6 +4,7 @@ import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
+
 Path(Path(__file__).parent / "output").mkdir(exist_ok=True)
 OUTPUT_DIR = Path(Path(__file__).parent / "output")
 RESULT_FILE = Path(OUTPUT_DIR / 'result.csv')
@@ -20,14 +21,17 @@ def fib(n: int) -> int:
     return f1
 
 def write_to_file(el: int) -> None:
+    """Write the fibonnaci number to a file."""
     with open(Path(OUTPUT_DIR / f"file {el}.txt"), "w", encoding="utf-8") as el_file:
             el_file.write(str(fib(el)))
 
 def func1(array: list) -> None:
+    """Concurrently write fibonnaci numbers to files."""
     with ProcessPoolExecutor() as exec: 
          for el in array: exec.submit(write_to_file, el)
 
 def func2(result_folder: str) -> None:
+    """Read all files from a folder and write to a csv file."""
     files = os.listdir(result_folder)
     files = [file for file in files if not file.endswith('.csv')]
     if files:

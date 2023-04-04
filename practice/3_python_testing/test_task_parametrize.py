@@ -14,10 +14,8 @@ import pytest
 
 def fibonacci_1(n: int) -> int:
     a, b = 0, 1
-    nums_lst = [0,1]
     for _ in range(n-1):
         a, b = b, a + b
-        nums_lst.append(b)
     return b
 
 def fibonacci_2(n: int) -> int:
@@ -30,16 +28,13 @@ def bug_fix_fibonacci_2(n: int) -> int: # The fix for fibonacci_2 is to start i 
     fibo = [0, 1]
     for i in range(2, n+1):
         fibo.append(fibo[i-1] + fibo[i-2])
-    print(fibo)
     return fibo[n]
 
 def fix_fibonacci_1(n: int) -> int: # To return the correct value when n is 0, add a conditional statement before the loop
     a, b = 0, 1
-    nums_lst = [0,1]
     if n == 0: return 0
     for _ in range(n-1):
         a, b = b, a + b
-        nums_lst.append(b)
     return b
 
 

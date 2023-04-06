@@ -14,7 +14,7 @@ Example:
 {"some_name": "Courtney Duncan", "fake-address": "8107 Nicole Orchard Suite 762\nJosephchester, WI 05981"}
 """
 import argparse
-from faker import Faker
+import faker
 from task_4_exceptions import InvalidFakerProviderException, InvalidKeyValuePairException
 
 
@@ -25,7 +25,7 @@ def get_args():
     return parser.parse_args()
 
 def print_name_address(args: argparse.Namespace) -> None:
-    fake = Faker()
+    fake = faker.Faker()
 
     for _ in range(args.NUMBER):
         new_dict = {}
@@ -42,7 +42,6 @@ def print_name_address(args: argparse.Namespace) -> None:
             try:
                 f = getattr(fake, arg_val)
             except AttributeError:
-                print(arg_val)
                 raise InvalidFakerProviderException('Faker Provider not found. Please enter a valid value.')
             
             new_dict[dict_key] = f()

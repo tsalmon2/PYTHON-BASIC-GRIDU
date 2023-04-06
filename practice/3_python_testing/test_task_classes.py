@@ -4,7 +4,6 @@ Check if all methods working correctly.
 Also check corner-cases, for example if homework number of days is negative.
 """
 from __future__ import annotations
-import tempfile
 import pytest
 import datetime
 import freezegun

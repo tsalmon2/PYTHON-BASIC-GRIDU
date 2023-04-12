@@ -28,7 +28,7 @@ class TestExceptions:
 
     @pytest.mark.parametrize("callable", [(18,2), (18,1)])
     def test_division_output(self, capfd, callable):
-        """Testing division by valid integer or 1 prints 'Division finished'."""
+        """Testing division by valid integer or 1 prints the correct result."""
         try:
             task.division(*callable)
         except(task.DivisionByOneException):
@@ -38,7 +38,7 @@ class TestExceptions:
             assert captured.out == "Division finished\n"
         
     def test_division_by_zero_stmt(self, capfd):
-        """Testing division by 0 prints "Division by 0" and 'Division finished'."""
+        """Testing division by 0 prints the correct result."""
         task.division(18,0)
         captured = capfd.readouterr()
         assert captured.out == "Division by 0\nDivision finished\n"

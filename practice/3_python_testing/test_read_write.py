@@ -13,7 +13,7 @@ from python_part_2 import task_read_write as task
 class TestReadWrite:
     """Class representing TestReadWrite."""
     def test_read_write_output(self):
-        """Testing that output is 80, 37."""
+        """Testing that output is correct."""
         temp_path = tempfile.NamedTemporaryFile().name
         task.read_files("file_1.txt", "file_2.txt", res_file_name=temp_path)
         with open(temp_path, "r", encoding="utf-8") as temp_file:

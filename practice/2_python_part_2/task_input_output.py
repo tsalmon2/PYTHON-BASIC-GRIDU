@@ -15,9 +15,14 @@ Examples:
     No numbers entered
 
 """
-
-
 def read_numbers(n: int) -> str:
-    ...
-
+    """Returns average of numbers entered."""
+    total = count = 0
+    for _ in range(0, n):
+        num = input("Enter a number: ")
+        if num.isnumeric():
+            count += 1
+            total += int(num)
+    if count == 0: return "No numbers entered"
+    return f"Avg: {round(total/count, 2)}"
 

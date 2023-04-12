@@ -26,6 +26,7 @@ Example:
     200
     >>> m.method2()
     b'some text'
+
 """
 
 class TestMakeRequest:
@@ -37,3 +38,6 @@ class TestMakeRequest:
         mock_.return_value = response
         assert make_request('https://www.google.com') == "200, 'some response text'"
  
+
+"""
+

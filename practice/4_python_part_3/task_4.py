@@ -43,13 +43,11 @@ def print_name_address(args: argparse.Namespace) -> None:
                 f = getattr(fake, arg_val)
             except AttributeError:
                 raise InvalidFakerProviderException('Faker Provider not found. Please enter a valid value.')
-            
             new_dict[dict_key] = f()
         print(f"{new_dict}")
 
 if __name__ == "__main__":
     args = get_args()
-    print(args)
     print_name_address(args)
 
 

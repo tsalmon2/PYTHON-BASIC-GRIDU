@@ -11,6 +11,7 @@ https://docs.python.org/3/library/unittest.mock.html#unittest.mock.patch
 
 TIP: for testing builtin input() function create another function which return input() and mock returned value
 """
+
 from unittest.mock import patch
 from read_numbers import read_numbers
 import pytest 
@@ -25,3 +26,4 @@ class TestInputOutput:
     @patch('builtins.input', side_effect=['text1','text2'])
     def test_read_numbers_with_text_input(self, mock_input) -> None:
         assert read_numbers() == []
+

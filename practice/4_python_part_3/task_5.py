@@ -6,11 +6,14 @@ Examples:
      200, 'response data'
 """
 from typing import Tuple
-
+from urllib.request import urlopen
+from unittest.mock import Mock, patch
 
 def make_request(url: str) -> Tuple[int, str]:
-    ...
-
+    response = urlopen(url)
+    status = response.status
+    body = response.read().decode("utf-8")
+    return f"{status}, '{body}'"
 
 """
 Write test for make_request function
@@ -23,4 +26,18 @@ Example:
     200
     >>> m.method2()
     b'some text'
+
 """
+
+class TestMakeRequest:
+    @patch("task_5.urlopen")
+    def test_with_valid_url(self, mock_):
+        response = Mock()
+        response.status = 200
+        response.read.return_value = "some response text".encode()
+        mock_.return_value = response
+        assert make_request('https://www.google.com') == "200, 'some response text'"
+ 
+
+"""
+

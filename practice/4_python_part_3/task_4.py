@@ -13,20 +13,42 @@ Example:
 {"some_name": "Chad Baird", "fake-address": "62323 Hobbs Green\nMaryshire, WY 48636"}
 {"some_name": "Courtney Duncan", "fake-address": "8107 Nicole Orchard Suite 762\nJosephchester, WI 05981"}
 """
-
 import argparse
+import faker
+from task_4_exceptions import InvalidFakerProviderException, InvalidKeyValuePairException
 
+
+def get_args():
+    parser = argparse.ArgumentParser(prog="TaskFourCLI")
+    parser.add_argument('NUMBER', type=int)
+    parser.add_argument('add_args', nargs=argparse.REMAINDER)
+    return parser.parse_args()
 
 def print_name_address(args: argparse.Namespace) -> None:
-    ...
+    fake = faker.Faker()
+
+    for _ in range(args.NUMBER):
+        new_dict = {}
+        for arg in args.add_args:
+            arg_lst = arg.split("=")
+
+            # Check if after split of add_args it's equal to 2
+            if len(arg_lst) != 2:
+                raise InvalidKeyValuePairException("A dictionary requires a key-value pair.")
+        
+            dict_key = arg_lst[0].strip('--')
+            arg_val = arg_lst[1]
+
+            try:
+                f = getattr(fake, arg_val)
+            except AttributeError:
+                raise InvalidFakerProviderException('Faker Provider not found. Please enter a valid value.')
+            
+            new_dict[dict_key] = f()
+        print(f"{new_dict}")
+
+if __name__ == "__main__":
+    args = get_args()
+    print_name_address(args)
 
 
-"""
-Write test for print_name_address function
-Use Mock for mocking args argument https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock
-Example:
-    >>> m = Mock()
-    >>> m.method.return_value = 123
-    >>> m.method()
-    123
-"""

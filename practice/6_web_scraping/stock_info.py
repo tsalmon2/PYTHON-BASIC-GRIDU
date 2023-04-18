@@ -41,8 +41,8 @@ from pathlib import Path
 
 def get_page(url):
     """Function to return html from specified url."""
-    web_page = soup(requests.get(url, headers={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0'}).content,
+    web_page = soup(requests.get(url, 
+        headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0'}).content,
                     "lxml")
     return web_page.find('body')
 
